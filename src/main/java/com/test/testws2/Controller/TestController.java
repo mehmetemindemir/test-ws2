@@ -2,6 +2,10 @@ package com.test.testws2.Controller;
 
 import com.test.testws2.Data.ListCriteria;
 import com.test.testws2.Data.ResponseData;
+import com.test.testws2.Data.User;
+import com.test.testws2.sevices.PassengerService;
+import com.test.testws2.sevices.UsersSevice;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +15,21 @@ import java.util.List;
 
 @RestController
 public class TestController {
+
+
+    UsersSevice usersSevice;
+    PassengerService passengerService;
+
+    @Autowired
+    public TestController(UsersSevice usersSevice, PassengerService passengerService) {
+        this.usersSevice=usersSevice;
+        this.passengerService=passengerService;
+
+    }
+
     @GetMapping( path = "/list")
-    List<String> getList(){
-        List<String> list=new ArrayList<>();
-        list.add("Mehmet");
-        list.add("Renas");
-        return list;
+    List<User> getList(){
+        return usersSevice.getUserList();
     }
     @GetMapping( path = "/list2")
     ResponseEntity<List<String>> getList2(){
@@ -57,6 +70,8 @@ public class TestController {
         res.setData(criteria.getName()+String.valueOf( criteria.getId()));
         res.setStatus(HttpStatus.OK.name());
         res.setMessage("service calisti");
+        System.out.println("res : "+res.getMessage());
+
         return res;
     }
 
