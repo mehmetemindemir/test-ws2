@@ -3,6 +3,7 @@ package com.test.testws2.Controller;
 import com.test.testws2.Data.ListCriteria;
 import com.test.testws2.Data.ResponseData;
 import com.test.testws2.Data.User;
+import com.test.testws2.Data.UserTest;
 import com.test.testws2.sevices.PassengerService;
 import com.test.testws2.sevices.UsersSevice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,24 +19,24 @@ public class TestController {
 
 
     UsersSevice usersSevice;
-    PassengerService passengerService;
 
     @Autowired
-    public TestController(UsersSevice usersSevice, PassengerService passengerService) {
+    public TestController(UsersSevice usersSevice) {
         this.usersSevice=usersSevice;
-        this.passengerService=passengerService;
 
     }
 
     @GetMapping( path = "/list")
     List<User> getList(){
-        return usersSevice.getUserList();
+        //return usersSevice.getUserList();
+        return null;
     }
     @GetMapping( path = "/list2")
     ResponseEntity<List<String>> getList2(){
         List<String> list=new ArrayList<>();
         list.add("Mehmet");
         list.add("Renas");
+
         return ResponseEntity.badRequest().build();
     }
     @GetMapping( path = "/list3")
@@ -54,6 +55,10 @@ public class TestController {
         res.setStatus(HttpStatus.OK.name());
         res.setMessage("service calisti");
         return res;
+    }
+    @GetMapping( path = "/list/user/{location}")
+   List<UserTest> getUserListByLocation(@PathVariable String location){
+        return usersSevice.getUserList(location);
     }
     @PostMapping( path = "/list4")
     ResponseData getList5(@RequestBody String name){
