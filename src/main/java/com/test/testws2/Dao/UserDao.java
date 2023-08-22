@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 @Repository
-public class UserDao implements IUser{
+public class     UserDao implements IUser{
     @Override
     public List<User> UserList() {
         User user=null;
