@@ -1,9 +1,10 @@
 package com.test.testws2.Dao;
 
 import com.test.testws2.Data.User;
+import com.test.testws2.Data.UserTest;
 
 import java.util.List;
 
 public interface IUser {
-    public List<User> UserList();
+     List<UserTest> UserList(String location);
 }

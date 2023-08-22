@@ -3,6 +3,8 @@ package com.test.testws2.Controller;
 import com.test.testws2.Data.ListCriteria;
 import com.test.testws2.Data.ResponseData;
 import com.test.testws2.Data.User;
+import com.test.testws2.Data.UserTest;
+import com.test.testws2.sevices.PassengerService;
 import com.test.testws2.sevices.UsersSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,26 +16,31 @@ import java.util.List;
 
 @RestController
 public class TestController {
+
+
     UsersSevice usersSevice;
-@Autowired
+
+    @Autowired
     public TestController(UsersSevice usersSevice) {
-        this.usersSevice = usersSevice;
+        this.usersSevice=usersSevice;
+
     }
 
     @GetMapping( path = "/list")
     List<User> getList(){
-        return  usersSevice.getUserList();
+        //return usersSevice.getUserList();
+        return null;
     }
     @GetMapping( path = "/list2")
     ResponseEntity<List<String>> getList2(){
         List<String> list=new ArrayList<>();
         list.add("Mehmet");
         list.add("Renas");
+
         return ResponseEntity.badRequest().build();
     }
     @GetMapping( path = "/list3")
     ResponseData getList3(){
-
        ResponseData res=new ResponseData();
        res.setData(null);
        res.setStatus(HttpStatus.NOT_FOUND.name());
@@ -48,6 +55,10 @@ public class TestController {
         res.setStatus(HttpStatus.OK.name());
         res.setMessage("service calisti");
         return res;
+    }
+    @GetMapping( path = "/list/user/{location}")
+   List<UserTest> getUserListByLocation(@PathVariable String location){
+        return usersSevice.getUserList(location);
     }
     @PostMapping( path = "/list4")
     ResponseData getList5(@RequestBody String name){
@@ -64,6 +75,8 @@ public class TestController {
         res.setData(criteria.getName()+String.valueOf( criteria.getId()));
         res.setStatus(HttpStatus.OK.name());
         res.setMessage("service calisti");
+        System.out.println("res : "+res.getMessage());
+
         return res;
     }
 

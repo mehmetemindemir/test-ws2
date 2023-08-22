@@ -2,6 +2,7 @@ package com.test.testws2.sevices;
 
 import com.test.testws2.Dao.IUser;
 import com.test.testws2.Data.User;
+import com.test.testws2.Data.UserTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class UsersSevice {
         this.user = user;
     }
 
-    public List<User> getUserList(){
-        return user.UserList();
+    public List<UserTest> getUserList(String location){
+        return user.UserList(location);
     }
 }
